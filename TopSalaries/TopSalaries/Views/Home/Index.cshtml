@@ -1,0 +1,69 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="../../css/Style.css" rel="stylesheet" type="text/css" />
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="~/Scripts/jquery.dataTables.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var oTable = $("#results").dataTable({
+                "aLengthMenu": [2,5,10],
+                "sPaginationType": "full_numbers",
+                "bJQueryUI": true
+            });
+            
+            $("#season").change(function () {
+                var strSelected = "";
+                $("#season option:selected").each(function () {
+                    strSelected += $(this)[0].value;
+                });
+                var url = "/Home/CallWebService?Year=" + strSelected
+                var request = $.ajax({
+                    url: url,
+                    type: "post",
+                });
+
+                request.done(function (response, textStatus, jqXHR) {
+                    // do something if necessary
+                    oTable.fnClearTable();
+                    var json = eval(response);
+                    oTable.fnAddData(json, true);
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Top 10 MLB Salaries</h1>
+    <div>
+    Select A Season:
+        <select id=season>
+            @for (int i = 2009; i < 2014; i++)
+            {
+                <option value="@i">@i</option>
+            }
+        </select>
+    </div>
+    <div id="Content">
+        <table id=results class="display">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Player</th>
+                    <th>Position</th>
+                    <th>Salary</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

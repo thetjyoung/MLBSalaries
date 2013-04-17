@@ -29,3 +29,5 @@ C:\Users\Randy\Documents\GitHub\MLBSalaries\TopSalaries\TopSalaries\bin\System.W
 C:\Users\Randy\Documents\GitHub\MLBSalaries\TopSalaries\TopSalaries\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\Randy\Documents\GitHub\MLBSalaries\TopSalaries\TopSalaries\obj\Debug\TopSalaries.dll
 C:\Users\Randy\Documents\GitHub\MLBSalaries\TopSalaries\TopSalaries\obj\Debug\TopSalaries.pdb
+C:\Users\Randy\Documents\GitHub\MLBSalaries\TopSalaries\TopSalaries\bin\System.Web.Abstractions.dll
+C:\Users\Randy\Documents\GitHub\MLBSalaries\TopSalaries\TopSalaries\bin\System.Web.Routing.dll

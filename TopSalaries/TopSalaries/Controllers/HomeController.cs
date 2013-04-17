@@ -20,6 +20,12 @@ namespace TopSalaries.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Instigates the web service call with the passed in value and
+        /// returns the results to the caller.
+        /// </summary>
+        /// <param name="Year">int representing desired year for web service query.</param>
+        /// <returns>A serialized array of arrays each representing a table row to be added.</returns>
         public ActionResult CallWebService(int? Year)
         {
             string salariesRequest = CreateRequest(Convert.ToString(Year).Trim());
@@ -30,6 +36,13 @@ namespace TopSalaries.Controllers
             return Json(output);
         }
 
+        /// <summary>
+        /// Parses the xml returned from the web service and extracts the 
+        /// desired data. Data extracted here must match the schema of the
+        /// datatable of the caller.
+        /// </summary>
+        /// <param name="salariesResponse">XML document returned from web service</param>
+        /// <returns>An array of arrays one for each child node in the returned xml</returns>
         private string[][] ProcessResponse(XmlDocument salariesResponse)
         {
             string[][] salaries = new string[10][];
@@ -49,6 +62,12 @@ namespace TopSalaries.Controllers
             return salaries;
         }
 
+        /// <summary>
+        /// Creates an http request string with the desired query criteria
+        /// and the user selected year.
+        /// </summary>
+        /// <param name="year">int representing desired year to query for</param>
+        /// <returns>http request string</returns>
         public static string CreateRequest(string year)
         {
             string UrlRequest = "http://api.usatoday.com/open/salaries/mlb?"
@@ -59,6 +78,13 @@ namespace TopSalaries.Controllers
             return (UrlRequest);
         }
 
+        /// <summary>
+        /// Creates an http request object using the http request string and
+        /// initiates the request. Packages the return value as an XMLDocument
+        /// and returns to caller.
+        /// </summary>
+        /// <param name="requestUrl">http request string</param>
+        /// <returns>XMLDocument containing the http response</returns>
         public static XmlDocument MakeRequest(string requestUrl)
         {
             try

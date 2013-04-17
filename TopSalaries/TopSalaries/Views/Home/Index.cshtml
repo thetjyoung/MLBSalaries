@@ -7,18 +7,25 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
+    <title>MLB Salaries</title>
+
+    <!--Dependancies section-->
     <link href="../../css/Style.css" rel="stylesheet" type="text/css" />
     <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script src="~/Scripts/jquery.dataTables.min.js"></script>
+
+    <!--Jquery Magic section-->
     <script type="text/javascript">
         $(document).ready(function () {
+            //datatable setup
             var oTable = $("#results").dataTable({
                 "aLengthMenu": [2,5,10],
-                "sPaginationType": "full_numbers",
+                "bPaginate": false,
                 "bJQueryUI": true
             });
-            
+            //Reacts to select box selection changed
+            //event and initiates an AJAX call to 
+            //populate the dataTable.
             $("#season").change(function () {
                 var strSelected = "";
                 $("#season option:selected").each(function () {
@@ -29,7 +36,7 @@
                     url: url,
                     type: "post",
                 });
-
+                //evaluate serialized response and populate table
                 request.done(function (response, textStatus, jqXHR) {
                     // do something if necessary
                     oTable.fnClearTable();
@@ -43,14 +50,20 @@
 <body>
     <h1>Top 10 MLB Salaries</h1>
     <div>
+    <!--I restricted the selection box to 2009-2013 because I noticed
+        the web service does not return results for years earlier than
+        2009-->
     Select A Season:
         <select id=season>
+            <option disabled="disabled" selected>Pick a Season</option>
             @for (int i = 2009; i < 2014; i++)
             {
                 <option value="@i">@i</option>
             }
         </select>
     </div>
+    <!--Datatable section. Schema must match the return values from the
+        AJAX call.-->
     <div id="Content">
         <table id=results class="display">
             <thead>
